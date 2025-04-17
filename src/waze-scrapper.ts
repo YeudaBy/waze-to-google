@@ -31,9 +31,9 @@ export async function wazeScrapperV3(url: string) {
     await page.goto(url, {waitUntil: 'networkidle2'});
     console.log('הדף נטען בהצלחה');
 
-    await page.waitForSelector('h1.wm-poi-name-and-address__name', {timeout: 10000})
+    await page.waitForSelector('h1.wm-poi-name-and-address__name', {timeout: 50000})
         .catch(() => {
-            console.log('לא נמצא הסלקטור בזמן ההמתנה - ממשיך בכל מקרה')
+            console.error('לא נמצא הסלקטור בזמן ההמתנה - ממשיך בכל מקרה')
         });
 
     const poiName = await page.evaluate(() => {
