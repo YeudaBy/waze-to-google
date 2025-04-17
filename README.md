@@ -1,30 +1,19 @@
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Waze to Maps - וויז לגוגל מפות
+<img src="/gr-sq.png" alt="drawing" width="200"/> 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### 🧑‍💻 [Website - אתר](https://waze2maps.vercel.app/)  ❉  [Android App - אפליקציה לאנדרואיד](https://github.com/YeudaBy/waze-to-maps/releases/download/v1.0/Waze-To-Maps__v1.0.apk) 📱
+
+Here, you can get a Google Maps link from a Waze link, simply by pasting the link in the textbox, or share a location from Waze into the Android app.
+
+כאן תוכלו לקבל קישור לגוגל מפות באמצעות הדבקת קישור של וויז או שיתוף מיקום ישירות מוויז.
 
 
 
-## Learn More
+איך להשתמש?
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+> <img src="/screen-recording.gif" alt="drawing" width="300"/> 
 
