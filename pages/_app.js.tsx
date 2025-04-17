@@ -1,6 +1,8 @@
 import {NextPage} from "next";
 import {ReactNode} from "react";
-import "../styles/global.scss"
+import "../styles/global.css"
+import "../styles/main.scss"
+
 
 export default function MyApp({Component}: {
     Component: NextPage

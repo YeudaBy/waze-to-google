@@ -1,4 +1,5 @@
 import {useState} from "react";
+import Image from "next/image";
 
 export default function Home() {
     const [wazeUrl, setWazeUrl] = useState("");
@@ -31,8 +32,10 @@ export default function Home() {
     };
 
     return (
-        <div dir="rtl" className="min-h-screen flex flex-col items-center justify-center p-4">
-            <h1 className="text-2xl font-bold mb-4">המרת קישור מ-Waze ל-Google Maps</h1>
+        <div dir="rtl"
+             className="min-h-screen flex flex-col items-center justify-center p-4 bg-radial from-green-100 from-25% to-blue-100">
+            <Image src={"/logo.png"} alt={"Google and Waze shaking hands"} width={200} height={200}/>
+            <h1 className="text-2xl test font-bold mb-4">המרת קישור מ-Waze ל-Google Maps</h1>
             <form onSubmit={handleSubmit} className="w-full max-w-md">
                 <input
                     type="text"
@@ -61,10 +64,9 @@ export default function Home() {
                                 onClick={() => navigator.clipboard.writeText(googleUrl)}>
                             העתק
                         </button>
-                        {navigator.canShare() &&
-                            <button onClick={() => navigator.share({url: googleUrl})}>
-                                שתף
-                            </button>}
+                        <button onClick={() => navigator.canShare() && navigator.share({url: googleUrl})}>
+                            שתף
+                        </button>
                     </div>
                 </div>
             )}
