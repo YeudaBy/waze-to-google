@@ -2,6 +2,8 @@
 
 import puppeteer from 'puppeteer';
 import chromium from "@sparticuz/chromium";
+// @ts-expect-error import shit
+import puppeteerCore from "puppeteer-core/src/puppeteer-core";
 
 // export async function scrapeWazePage(url: string) {
 //     console.log('מתחיל את התהליך...');
@@ -102,30 +104,64 @@ import chromium from "@sparticuz/chromium";
 //     }
 // }
 
-export async function wazeScrapperV2(url: string) {
-    let result = null;
+// export async function wazeScrapperV2(url: string) {
+//     let result = null;
+//     let browser = null;
+//
+//     try {
+//         browser = await puppeteer.launch({
+//             args: chromium.args,
+//             defaultViewport: chromium.defaultViewport,
+//             executablePath: await chromium.executablePath,
+//             headless: chromium.headless,
+//         });
+//
+//         const page = await browser.newPage();
+//
+//         await page.goto(url);
+//
+//         result = await page.title();
+//     } catch (error) {
+//         console.log(error)
+//         throw new Error("Failed")
+//     } finally {
+//         if (browser !== null) {
+//             await browser.close();
+//         }
+//     }
+//     return result
+// }
+export async function wazeScrapperV3(url: string) {
     let browser = null;
 
-    try {
+    if (process.env.NODE_ENV === 'development') {
         browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            headless: true,
+        });
+    }
+    if (process.env.NODE_ENV === 'production') {
+        browser = await puppeteerCore.launch({
             args: chromium.args,
             defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath,
+            executablePath: await chromium.executablePath(),
             headless: chromium.headless,
         });
-
-        const page = await browser.newPage();
-
-        await page.goto(url);
-
-        result = await page.title();
-    } catch (error) {
-        console.log(error)
-        throw new Error("Failed")
-    } finally {
-        if (browser !== null) {
-            await browser.close();
-        }
     }
-    return result
+    const page = await browser.newPage();
+    await page.goto(url, {waitUntil: 'networkidle2'});
+    console.log('הדף נטען בהצלחה');
+
+    await page.waitForSelector('h1.wm-poi-name-and-address__name', {timeout: 10000})
+        .catch(() => console.log('לא נמצא הסלקטור בזמן ההמתנה - ממשיך בכל מקרה'));
+
+    const poiName = await page.evaluate(() => {
+        const element = document.querySelector('h1.wm-poi-name-and-address__name');
+        return element ? element.innerHTML : 'לא נמצא אלמנט התואם לסלקטור';
+    });
+
+    await browser.close();
+
+    console.log('התוכן שנשלף:', poiName);
+    return poiName;
 }
