@@ -1,7 +1,4 @@
-"use client"
-
 import {useState} from "react";
-import {wazeScrapperV3} from "@/app/waze-scrapper";
 
 export default function Home() {
     const [wazeUrl, setWazeUrl] = useState("");
@@ -15,15 +12,19 @@ export default function Home() {
         setError("");
         setGoogleUrl("");
         try {
-            const res = await wazeScrapperV3(wazeUrl)
-            console.log(res)
-            if (res) {
-                setGoogleUrl(buildGoogleMapsLink(res));
+            const res = await fetch("/api/", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({url: wazeUrl}),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setGoogleUrl(data.googleUrl);
             } else {
-                setError("אירעה שגיאה");
+                setError(data.error || "אירעה שגיאה");
             }
-        } catch (e) {
-            console.log(e)
+        } catch (err) {
+            console.error(err)
             setError("שגיאה בעת שליחת הבקשה");
         }
         setLoading(false);
@@ -35,14 +36,14 @@ export default function Home() {
             <form onSubmit={handleSubmit} className="w-full max-w-md">
                 <input
                     type="text"
-                    className="w-full border p-2 rounded mb-2"
+                    className="w-full border p-2 rounded-xl mb-2"
                     placeholder="הדבק כאן קישור מ-Waze"
                     value={wazeUrl}
                     onChange={(e) => setWazeUrl(e.target.value)}
                 />
                 <button
                     type="submit"
-                    className="w-full bg-blue-500 text-white py-2 rounded disabled:opacity-50"
+                    className="w-full bg-blue-500 text-white py-2 rounded-xl disabled:opacity-50"
                     disabled={loading || !wazeUrl.trim()}
                 >
                     {loading ? "טוען..." : "המר"}
@@ -54,8 +55,10 @@ export default function Home() {
                     <a href={googleUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
                         {googleUrl}
                     </a>
-                    <div className="">
-                        <button onClick={() => navigator.clipboard.writeText(googleUrl)}>
+
+                    <div className="flex gap-2 mt-4 item-center justify-center pointer">
+                        <button className={"bg-blue-50 py-2 px-5 rounded-xl"}
+                                onClick={() => navigator.clipboard.writeText(googleUrl)}>
                             העתק
                         </button>
                         {navigator.canShare() &&
@@ -66,11 +69,11 @@ export default function Home() {
                 </div>
             )}
             {error && <p className="mt-4 text-red-500">{error}</p>}
+
+
+            <div className={"fixed bottom-0 text-gray-800 text-xs p-3"}>
+                Created By <a href={"https://yeudaby.com"} target={"_blank"}>YeudaBy</a>
+            </div>
         </div>
     );
-}
-
-
-function buildGoogleMapsLink(cords: string): string {
-    return "https://www.google.com/maps/place/" + cords
 }
