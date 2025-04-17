@@ -1,6 +1,7 @@
 "use server"
 
 import puppeteer from 'puppeteer';
+import chromium from "@sparticuz/chromium";
 
 export async function scrapeWazePage(url: string) {
     console.log('מתחיל את התהליך...');
@@ -33,7 +34,12 @@ export async function scrapeWazePage(url: string) {
     try {
         // הפעלת דפדפן
         console.log('מנסה לפתוח דפדפן עם האפשרויות:', JSON.stringify(browserOptions));
-        browser = await puppeteer.launch(browserOptions);
+        browser = await puppeteer.launch({
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath,
+            headless: chromium.headless,
+        });
 
         // פתיחת דף חדש
         const page = await browser.newPage();
@@ -94,4 +100,32 @@ export async function scrapeWazePage(url: string) {
             console.log('הדפדפן נסגר');
         }
     }
+}
+
+export async function wazeScrapperV2(url: string) {
+    let result = null;
+    let browser = null;
+
+    try {
+        browser = await puppeteer.launch({
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath,
+            headless: chromium.headless,
+        });
+
+        const page = await browser.newPage();
+
+        await page.goto(url);
+
+        result = await page.title();
+    } catch (error) {
+        console.log(error)
+        throw new Error("Failed")
+    } finally {
+        if (browser !== null) {
+            await browser.close();
+        }
+    }
+    return result
 }

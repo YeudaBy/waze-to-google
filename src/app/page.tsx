@@ -1,7 +1,7 @@
 "use client"
 
 import {useState} from "react";
-import {scrapeWazePage} from "@/app/waze-scrapper";
+import {scrapeWazePage, wazeScrapperV2} from "@/app/waze-scrapper";
 
 export default function Home() {
     const [wazeUrl, setWazeUrl] = useState("");
@@ -15,7 +15,7 @@ export default function Home() {
         setError("");
         setGoogleUrl("");
         try {
-            const res = await scrapeWazePage(wazeUrl)
+            const res = await wazeScrapperV2(wazeUrl)
             console.log(res)
             if (res) {
                 setGoogleUrl(buildGoogleMapsLink(res));
