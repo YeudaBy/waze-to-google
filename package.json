@@ -3,33 +3,31 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npx puppeteer browsers install chrome && next dev",
+    "dev": "npx puppeteer browsers install chrome && NODE_OPTIONS='--inspect' next dev --turbopack",
     "build": "next build",
     "start": "npx puppeteer browsers install chrome && next start",
     "lint": "next lint"
   },
+  "engines": {
+    "node": "^18"
+  },
   "dependencies": {
-    "@sparticuz/chromium": "^123.0.0",
-    "autoprefixer": "^10.4.21",
-    "cheerio": "^1.0.0",
-    "next": "15.3.0",
-    "postcss": "^8.5.3",
-    "puppeteer": "^22.11.0",
-    "puppeteer-core": "^22.11.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sass": "^1.86.3",
-    "scss": "^0.2.4"
+    "puppeteer": "^22.11.0",
+    "puppeteer-core": "^22.11.0",
+    "@sparticuz/chromium": "^123.0.0",
+    "next": "15.3.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4.1.4",
+    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.3.0",
-    "tailwindcss": "^4.1.4",
-    "typescript": "^5"
+    "@eslint/eslintrc": "^3"
   }
 }

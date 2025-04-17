@@ -1,5 +1,6 @@
-import {useState} from "react";
 import Image from "next/image";
+import {useState} from "react";
+
 
 export default function Home() {
     const [wazeUrl, setWazeUrl] = useState("");
@@ -20,7 +21,7 @@ export default function Home() {
             });
             const data = await res.json();
             if (res.ok) {
-                setGoogleUrl(data.googleUrl);
+                setGoogleUrl(data);
             } else {
                 setError(data.error || "אירעה שגיאה");
             }
@@ -35,7 +36,7 @@ export default function Home() {
         <div dir="rtl"
              className="min-h-screen flex flex-col items-center justify-center p-4 bg-radial from-green-100 from-25% to-blue-100">
             <Image src={"/logo.png"} alt={"Google and Waze shaking hands"} width={200} height={200}/>
-            <h1 className="text-2xl test font-bold mb-4">המרת קישור מ-Waze ל-Google Maps</h1>
+            <h1 className="text-2xl test font-bold mb-4 text-center">המרת קישור מ-Waze ל-Google Maps</h1>
             <form onSubmit={handleSubmit} className="w-full max-w-md">
                 <input
                     type="text"
@@ -51,6 +52,9 @@ export default function Home() {
                 >
                     {loading ? "טוען..." : "המר"}
                 </button>
+                {loading && <p className={"text-xs"}>
+                    זמן הבקשה אורך כ-עד 20 שניות
+                </p>}
             </form>
             {googleUrl && (
                 <div className="mt-4 text-center">
@@ -60,11 +64,12 @@ export default function Home() {
                     </a>
 
                     <div className="flex gap-2 mt-4 item-center justify-center pointer">
-                        <button className={"bg-blue-50 py-2 px-5 rounded-xl"}
+                        <button className={"bg-blue-200 py-2 px-5 rounded-xl grow"}
                                 onClick={() => navigator.clipboard.writeText(googleUrl)}>
                             העתק
                         </button>
-                        <button onClick={() => navigator.canShare() && navigator.share({url: googleUrl})}>
+                        <button className={"bg-blue-200 py-2 px-5 rounded-xl grow"}
+                                onClick={() => navigator.canShare() && navigator.share({url: googleUrl})}>
                             שתף
                         </button>
                     </div>
