@@ -79,8 +79,14 @@ export default function Home() {
 
 
             <div className={"fixed bottom-0 text-gray-800 text-xs p-3"}>
-                Created By <a href={"https://yeudaby.com"} target={"_blank"}>YeudaBy</a>
+                <p>Created By <a href={"https://yeudaby.com"} target={"_blank"}>YeudaBy</a></p>
             </div>
+
+            <a href={"https://github.com/YeudaBy/waze-to-maps"} target={"_blank"}
+               className={"flex items-center border-dashed border rounded-full px-5 py-1 top-10 absolute opacity-65 animate-bounce"}>
+                <img src={"/mobile-download-line.svg"} className={"size-6 opacity-50"}/>
+                הורידו את האפליקציה!
+            </a>
         </div>
     );
 }
