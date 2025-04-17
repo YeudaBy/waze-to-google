@@ -2,8 +2,7 @@
 
 import puppeteer from 'puppeteer';
 import chromium from "@sparticuz/chromium";
-// @ts-expect-error import shit
-import puppeteerCore from "puppeteer-core/src/puppeteer-core";
+import puppeteerCore from "puppeteer-core";
 
 // export async function scrapeWazePage(url: string) {
 //     console.log('מתחיל את התהליך...');
@@ -148,6 +147,7 @@ export async function wazeScrapperV3(url: string) {
             headless: chromium.headless,
         });
     }
+    if (!browser) return
     const page = await browser.newPage();
     await page.goto(url, {waitUntil: 'networkidle2'});
     console.log('הדף נטען בהצלחה');
@@ -155,6 +155,7 @@ export async function wazeScrapperV3(url: string) {
     await page.waitForSelector('h1.wm-poi-name-and-address__name', {timeout: 10000})
         .catch(() => console.log('לא נמצא הסלקטור בזמן ההמתנה - ממשיך בכל מקרה'));
 
+    // @ts-expect-error some ts shit
     const poiName = await page.evaluate(() => {
         const element = document.querySelector('h1.wm-poi-name-and-address__name');
         return element ? element.innerHTML : 'לא נמצא אלמנט התואם לסלקטור';
