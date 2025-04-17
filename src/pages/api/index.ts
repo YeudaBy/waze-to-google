@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const points = await wazeScrapperV3(url)
     const googleUrl = "https://www.google.com/maps/place/" + points
 
-    return res.status(200).json({googleUrl});
+    return res.status(200).json(googleUrl);
   } catch (e) {
     console.error(e)
     return res.status(500).json({error: "שגיאה בשרת: " + (e instanceof Error ? e.message : e)});
