@@ -1,7 +1,7 @@
 "use client"
 
 import {useState} from "react";
-import {scrapeWazePage, wazeScrapperV2} from "@/app/waze-scrapper";
+import { wazeScrapperV2} from "@/app/waze-scrapper";
 
 export default function Home() {
     const [wazeUrl, setWazeUrl] = useState("");
