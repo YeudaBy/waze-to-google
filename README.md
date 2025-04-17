@@ -1,7 +1,7 @@
 
 
 # Waze to Maps - וויז לגוגל מפות
-<img src="/gr-sq.png" alt="drawing" width="200"/> 
+<img src="/public/gr-sq.png" alt="drawing" width="200"/> 
 
 #### 🧑‍💻 [Website - אתר](https://waze2maps.vercel.app/)  ❉  [Android App - אפליקציה לאנדרואיד](https://github.com/YeudaBy/waze-to-maps/releases/download/v1.0/Waze-To-Maps__v1.0.apk) 📱
 
@@ -15,5 +15,5 @@ Here, you can get a Google Maps link from a Waze link, simply by pasting the lin
 
 
 
-> <img src="/screen-recording.gif" alt="drawing" width="300"/> 
+> <img src="/public/screen-recording.gif" alt="drawing" width="300"/> 
 

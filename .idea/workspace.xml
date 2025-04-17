@@ -100,7 +100,7 @@
       <option name="presentableId" value="Default" />
       <updated>1744910654802</updated>
       <workItem from="1744910655847" duration="1194000" />
-      <workItem from="1744916515128" duration="794000" />
+      <workItem from="1744916515128" duration="1770000" />
     </task>
     <task id="LOCAL-00001" summary="autoprefixer">
       <option name="closed" value="true" />
@@ -118,7 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744911196176</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="[WEB] link to app">
+      <option name="closed" value="true" />
+      <created>1744917328944</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1744917328944</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,6 +146,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="autoprefixer" />
     <MESSAGE value="maybe" />
-    <option name="LAST_COMMIT_MESSAGE" value="maybe" />
+    <MESSAGE value="[WEB] link to app" />
+    <option name="LAST_COMMIT_MESSAGE" value="[WEB] link to app" />
   </component>
 </project>
