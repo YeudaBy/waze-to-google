@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npx puppeteer browsers install chrome && next dev --turbopack",
+    "dev": "npx puppeteer browsers install chrome && NODE_OPTIONS='--inspect' next dev --turbopack",
     "build": "next build",
     "start": "npx puppeteer browsers install chrome && next start",
     "lint": "next lint"

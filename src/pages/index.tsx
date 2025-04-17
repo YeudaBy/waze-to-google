@@ -61,14 +61,14 @@ export default function Home() {
                     </a>
 
                     <div className="flex gap-2 mt-4 item-center justify-center pointer">
-                        <button className={"bg-blue-50 py-2 px-5 rounded-xl"}
+                        <button className={"bg-blue-200 py-2 px-5 rounded-xl grow"}
                                 onClick={() => navigator.clipboard.writeText(googleUrl)}>
                             העתק
                         </button>
-                        {navigator.canShare() &&
-                            <button onClick={() => navigator.share({url: googleUrl})}>
-                                שתף
-                            </button>}
+                        <button className={"bg-blue-200 py-2 px-5 rounded-xl grow"}
+                                onClick={() => navigator.canShare() && navigator.share({url: googleUrl})}>
+                            שתף
+                        </button>
                     </div>
                 </div>
             )}

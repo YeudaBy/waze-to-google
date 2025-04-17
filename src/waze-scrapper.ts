@@ -1,24 +1,29 @@
-import puppeteer from 'puppeteer';
 import chromium from "@sparticuz/chromium";
 import puppeteerCore from "puppeteer-core";
 
 export async function wazeScrapperV3(url: string) {
     let browser = null;
 
-    if (process.env.NODE_ENV === 'development') {
-        browser = await puppeteer.launch({
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            headless: true,
-        });
-    }
-    if (process.env.NODE_ENV === 'production') {
-        browser = await puppeteerCore.launch({
-            args: chromium.args,
-            defaultViewport: chromium.defaultViewport,
-            executablePath: await chromium.executablePath(),
-            headless: chromium.headless,
-        });
-    }
+    // if (process.env.NODE_ENV === 'development') {
+    //     browser = await puppeteer.launch({
+    //         args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    //         headless: true,
+    //     });
+    // }
+    // if (process.env.NODE_ENV === 'production') {
+    browser = await puppeteerCore.launch({
+        args: [
+            ...chromium.args,
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--single-process'
+        ],
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: chromium.headless,
+    });
+    // }
     if (!browser) {
         return
     }
@@ -31,7 +36,6 @@ export async function wazeScrapperV3(url: string) {
             console.log('לא נמצא הסלקטור בזמן ההמתנה - ממשיך בכל מקרה')
         });
 
-    // @ts-expect-error some ts shit
     const poiName = await page.evaluate(() => {
         const element = document.querySelector('h1.wm-poi-name-and-address__name');
         return element ? element.innerHTML : 'לא נמצא אלמנט התואם לסלקטור';

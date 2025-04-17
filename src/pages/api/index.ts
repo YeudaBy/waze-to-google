@@ -13,6 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     return res.status(200).json({googleUrl});
   } catch (e) {
+    console.error(e)
     return res.status(500).json({error: "שגיאה בשרת: " + (e instanceof Error ? e.message : e)});
   }
 }
