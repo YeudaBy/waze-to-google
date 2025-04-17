@@ -147,13 +147,17 @@ export async function wazeScrapperV3(url: string) {
             headless: chromium.headless,
         });
     }
-    if (!browser) return
+    if (!browser) {
+        return
+    }
     const page = await browser.newPage();
     await page.goto(url, {waitUntil: 'networkidle2'});
     console.log('הדף נטען בהצלחה');
 
     await page.waitForSelector('h1.wm-poi-name-and-address__name', {timeout: 10000})
-        .catch(() => console.log('לא נמצא הסלקטור בזמן ההמתנה - ממשיך בכל מקרה'));
+        .catch(() => {
+            console.log('לא נמצא הסלקטור בזמן ההמתנה - ממשיך בכל מקרה')
+        });
 
     // @ts-expect-error some ts shit
     const poiName = await page.evaluate(() => {

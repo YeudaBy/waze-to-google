@@ -1,7 +1,4 @@
-"use client"
-
 import {useState} from "react";
-import {wazeScrapperV3} from "@/app/waze-scrapper";
 
 export default function Home() {
     const [wazeUrl, setWazeUrl] = useState("");
@@ -15,15 +12,18 @@ export default function Home() {
         setError("");
         setGoogleUrl("");
         try {
-            const res = await wazeScrapperV3(wazeUrl)
-            console.log(res)
-            if (res) {
-                setGoogleUrl(buildGoogleMapsLink(res));
+            const res = await fetch("/api/", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({url: wazeUrl}),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setGoogleUrl(data.googleUrl);
             } else {
-                setError("אירעה שגיאה");
+                setError(data.error || "אירעה שגיאה");
             }
-        } catch (e) {
-            console.log(e)
+        } catch (err) {
             setError("שגיאה בעת שליחת הבקשה");
         }
         setLoading(false);
@@ -54,23 +54,9 @@ export default function Home() {
                     <a href={googleUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
                         {googleUrl}
                     </a>
-                    <div className="">
-                        <button onClick={() => navigator.clipboard.writeText(googleUrl)}>
-                            העתק
-                        </button>
-                        {navigator.canShare() &&
-                            <button onClick={() => navigator.share({url: googleUrl})}>
-                                שתף
-                            </button>}
-                    </div>
                 </div>
             )}
             {error && <p className="mt-4 text-red-500">{error}</p>}
         </div>
     );
-}
-
-
-function buildGoogleMapsLink(cords: string): string {
-    return "https://www.google.com/maps/place/" + cords
 }
