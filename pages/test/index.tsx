@@ -24,6 +24,7 @@ export default function Home() {
                 setError(data.error || "אירעה שגיאה");
             }
         } catch (err) {
+            console.error(err)
             setError("שגיאה בעת שליחת הבקשה");
         }
         setLoading(false);
